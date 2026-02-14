@@ -1,0 +1,34 @@
+package me.korolkotov.discordy.util
+
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.Timestamp
+import java.time.Instant
+
+fun String.asComponent(): Component = LegacyComponentSerializer.legacySection().deserialize(this)
+
+fun ResultSet.getInstant(column: String): Instant = getTimestamp(column).toInstant()
+
+fun PreparedStatement.setInstant(index: Int, instant: Instant) = setTimestamp(index, Timestamp.from(instant))
+
+fun String.toRange(): IntRange {
+    val num = this.toIntOrNull()
+    if (num != null) return num..num
+
+    val args = this.split("..")
+    val min = args[0].toInt()
+    val max = args[1].toInt()
+    return min..max
+}
+
+fun Double.format(): String {
+    val bd = BigDecimal(this.toString())
+        .setScale(2, RoundingMode.HALF_UP)
+        .stripTrailingZeros()
+
+    return bd.toPlainString()
+}

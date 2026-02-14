@@ -2,3 +2,9 @@ name: Discordy
 version: '1.0'
 main: me.korolkotov.discordy.Main
 api-version: '1.21'
+author: KoroLKotov
+
+commands:
+  discord:
+    aliases: [ds]
+    description: 'Основная команда плагина Discordy.'
