@@ -1,3 +1,30 @@
 plugin: # основные настройки плагина
   language: ru # язык сообщений (папка messages)
   debug: false
+
+bot:
+  token: ''
+  code:
+    length: 4
+    lifetime: 30
+    symbols: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  echo-channels:
+    - '11111'
+
+  privileges:
+    default:
+      role: '11111'
+      commands:
+        - 'say'
+    vip:
+      subgroups: [default]
+      role: '11111'
+      commands:
+        - 'say'
+
+  voice:
+    period: 3600
+    channels:
+      - '1111'
+    commands:
+      - 'ban %player%'

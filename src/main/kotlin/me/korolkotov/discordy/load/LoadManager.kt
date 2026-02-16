@@ -3,6 +3,7 @@ package me.korolkotov.discordy.load
 import me.korolkotov.discordy.command.CommandManager
 import me.korolkotov.discordy.config.ConfigManager
 import me.korolkotov.discordy.database.DatabaseManager
+import me.korolkotov.discordy.discord.DiscordManager
 import me.korolkotov.discordy.logger.LoggerManager
 
 class LoadManager {
@@ -18,6 +19,7 @@ class LoadManager {
         loadManagerInterfaces.add(ConfigManager())
         loadManagerInterfaces.add(LoggerManager())
         loadManagerInterfaces.add(DatabaseManager())
+        loadManagerInterfaces.add(DiscordManager())
         loadManagerInterfaces.add(CommandManager())
     }
 

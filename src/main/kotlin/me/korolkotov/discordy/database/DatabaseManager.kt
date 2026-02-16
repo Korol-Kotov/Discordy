@@ -3,12 +3,19 @@ package me.korolkotov.discordy.database
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import me.korolkotov.discordy.config.ConfigManager
+import me.korolkotov.discordy.database.dao.UserDao
+import me.korolkotov.discordy.database.dao.jdbc.JdbcUserDao
+import me.korolkotov.discordy.database.repository.DiscordRepository
 import me.korolkotov.discordy.load.LoadManagerInterface
 import me.korolkotov.discordy.logger.Logger
 import java.io.File
 
 class DatabaseManager : LoadManagerInterface<DatabaseManager> {
     lateinit var dataSource: HikariDataSource
+
+    lateinit var userDao: UserDao
+
+    lateinit var discordRepository: DiscordRepository
 
     override fun getInstance() = this
 
@@ -61,6 +68,10 @@ class DatabaseManager : LoadManagerInterface<DatabaseManager> {
 
         MigrationService(dataSource).migrate()
         Logger.instance.debug("Database has been migrated.")
+
+        userDao = JdbcUserDao(dataSource)
+
+        discordRepository = DiscordRepository(userDao)
     }
 
     override fun terminate() {
